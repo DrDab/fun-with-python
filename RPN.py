@@ -56,6 +56,10 @@ while isRunning:
             num1 = pop()
             num2 = pop()
             push(num2**num1)
+        elif token == "%":
+            num1 = pop()
+            num2 = pop()
+            push(num2%num1)
         else:
             push(float(token))
     print(stack[0])
