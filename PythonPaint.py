@@ -59,6 +59,10 @@ def drawCrossHair(mx, my):
 running = True
 painting = False
 
+prevMx = -1
+prevMy = -1
+prevPainting = False
+
 drawPal()
 
 while running:
@@ -68,7 +72,11 @@ while running:
             running = False
             break
         if event.type == pygame.MOUSEBUTTONDOWN:
-            painting = True
+            if mouseInPal(my):
+                palIdx = mx / paletteDX
+                drawColor = PALETTE[int(palIdx)]
+            else:
+                painting = True
         if event.type == pygame.MOUSEBUTTONUP:
             painting = False
         if event.type == pygame.KEYDOWN:
@@ -90,11 +98,16 @@ while running:
                     
     
     if painting:
-        if mouseInPal(my):
-            palIdx = mx / paletteDX
-            drawColor = PALETTE[int(palIdx)]
-        else:
+        if mouseInPal(my) == False:
+            if prevPainting:
+                if mx != prevMx and my != prevMy:
+                    pygame.draw.line(w, drawColor, (mx,my), (prevMx,prevMy), int(brushSize * 1.8))
             pygame.draw.circle(w, drawColor, (mx,my), brushSize)
+            prevMx = mx
+            prevMy = my
+            prevPainting = True
+    else:
+        prevPainting = False
             
     pygame.display.flip()
 
