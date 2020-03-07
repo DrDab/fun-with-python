@@ -12,8 +12,6 @@ Copyright (c) 2016-2018 TechSmart Inc.
 # Please do not make API changes without discussing with the rest of the team.
 #
 
-from __future__ import division
-
 # NOTE: Be careful when extending the list of top-level imports since it can
 #       noticeably delay the DPython interpreter startup time if the new
 #       imports are not burned into interpreter filesystem or are not
