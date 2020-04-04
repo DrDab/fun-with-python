@@ -15,13 +15,15 @@ playerx = 5.0
 playery = 3.0
 player_rotation = 0.0
 player_fov = 75.0 * math.pi / 180.0
+player_rot_speed = 60 * math.pi / 180.0 # radians/sec
+player_move_speed = 1.0 # units/sec
 flashlightOn = False
 
 player_prev_x = playerx
 player_prev_y = playery
 player_prev_rot = player_rotation
 
-num_rects = 40
+num_rects = 60
 screen_height = 400
 screen_width = 600
 w = pygame.display.set_mode([screen_width, screen_height])
@@ -81,6 +83,8 @@ while running:
             
     w.fill((0, 0, 0))
     
+    dt = c.get_time() / 1000.0
+
     # teleport player back into room if player leaves bounds of map
     if playery < 0.0 or playery > len(gmp) - 1 or playerx < 0.0 or playerx > len(gmp[0]) - 1:
         playerx = 5.0
@@ -92,21 +96,21 @@ while running:
     d2 = player_rotation + (math.pi / 2)
     d3 = player_rotation + math.pi
     if tsk.get_key_pressed(pygame.K_s):
-        playerx += 0.5 * math.cos(d3)
-        playery -= 0.5 * math.sin(d3)
+        playerx += player_move_speed * math.cos(d3) * dt
+        playery -= player_move_speed * math.sin(d3) * dt
     if tsk.get_key_pressed(pygame.K_w):
-        playerx += 0.5 * math.cos(player_rotation)
-        playery -= 0.5 * math.sin(player_rotation)
+        playerx += player_move_speed * math.cos(player_rotation) * dt
+        playery -= player_move_speed * math.sin(player_rotation) * dt
     if tsk.get_key_pressed(pygame.K_a):
-        playerx += 0.5 * math.cos(d1)
-        playery -= 0.5 * math.sin(d1)
+        playerx += player_move_speed * math.cos(d1) * dt
+        playery -= player_move_speed * math.sin(d1) * dt
     if tsk.get_key_pressed(pygame.K_d):
-        playerx += 0.5 * math.cos(d2)
-        playery -= 0.5 * math.sin(d2)
+        playerx += player_move_speed * math.cos(d2) * dt
+        playery -= player_move_speed * math.sin(d2) * dt
     if tsk.get_key_pressed(pygame.K_o):
-        player_rotation -= 0.25
+        player_rotation -= player_rot_speed * dt
     if tsk.get_key_pressed(pygame.K_p):
-        player_rotation += 0.25
+        player_rotation += player_rot_speed * dt
     if tsk.get_key_pressed(pygame.K_f):
         flashlightOn = not flashlightOn
     
