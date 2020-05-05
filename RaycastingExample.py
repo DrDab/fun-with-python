@@ -23,7 +23,7 @@ player_prev_x = playerx
 player_prev_y = playery
 player_prev_rot = player_rotation
 
-num_rects = 60
+num_rects = 100
 screen_height = 400
 screen_width = 600
 w = pygame.display.set_mode([screen_width, screen_height])
@@ -80,6 +80,8 @@ while running:
         if event.type == pygame.QUIT:
             running = False
             break
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_f:
+            flashlightOn = not flashlightOn
             
     w.fill((0, 0, 0))
     
@@ -111,8 +113,6 @@ while running:
         player_rotation -= player_rot_speed * dt
     if tsk.get_key_pressed(pygame.K_p):
         player_rotation += player_rot_speed * dt
-    if tsk.get_key_pressed(pygame.K_f):
-        flashlightOn = not flashlightOn
     
     if gmp[int(playery)][int(playerx)] == 1:
         revert_cached_player_pose()
