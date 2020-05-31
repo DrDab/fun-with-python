@@ -69,7 +69,7 @@ def drawcharges():
             color = RED
         else:
             color = BLUE
-        pygame.draw.circle(w, color, (cx_s, cy_s), 10)      
+        pygame.draw.circle(w, color, (int(cx_s), int(cy_s)), 10)      
     pygame.display.flip()
 
 # draw 10-centimeter tickmarks.
