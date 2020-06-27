@@ -26,8 +26,10 @@ def getVectorPose(row, col, mouseX, mouseY):
     dy = vectorPY - mouseY
     dx = vectorPX - mouseX
     dist = math.hypot(dy, dx)
-    if dist <= STOP_DISTANCE:
+    if dist == 0.0:
         return [vectorPX, vectorPY, vectorPX, vectorPY]
+    if dist <= STOP_DISTANCE:
+        dist = STOP_DISTANCE
     unitDy = dy / dist
     unitDx = dx / dist
     relDist = dist / screen_diagonal_dist
