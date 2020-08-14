@@ -14,7 +14,7 @@ WAVELENGTH = 1.2
 def wave_amplitude(x, t):
     if x > WAVE_SPEED * t:
         return 0.0
-    return INTENSITY_MAX * math.sin((2 * math.pi * x / WAVELENGTH) - (WAVE_SPEED * t))
+    return INTENSITY_MAX * math.sin(((2 * math.pi * x) - (WAVE_SPEED * t)) / WAVELENGTH)
 
 w = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
 c = pygame.time.Clock()
